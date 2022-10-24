@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: IAM Role for cross account access
+Parameters:
+  RoleIdentifier:
+    Type: String
+    Description: Identifier appended to the end of the name of the role
+    Default: ''
+  AccountId:
+    Type: String
+    Description: The ID of the AWS account to be granted access
+    AllowedPattern: ^\d{12}$
+    ConstraintDescription: 'it must be numeric and 12 long, for example: 123456789012'
+Resources:
+  CrossAccountRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: OrganizationAccountAccessRole${RoleNameSuffix}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            AWS:
+              Fn::Sub: arn:aws:iam::${AccountId}:root
+          Action: sts:AssumeRole
+      Path: /
+      Policies:
+      - PolicyName: AdministratorAccess
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action: '*'
+            Resource: '*'
+      - PolicyName: BillingAccess
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - aws-portal:ViewBilling
+            - aws-portal:ModifyBilling
+            - budgets:ViewBudget
+            - budgets:ModifyBudget
+            Resource: '*'
+Outputs:
+  RoleArn:
+    Description: The ARN of the created access rule, to be communicated to whoever
+      is to connect
+    Value:
+      Fn::GetAtt:
+      - CrossAccountRole
+      - Arn
