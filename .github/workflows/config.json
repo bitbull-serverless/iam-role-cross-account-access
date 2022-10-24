@@ -4,6 +4,10 @@
     "s3bucket": "bitbull-serverless-templates-butoamoogh8eigo"
   },
   {
+    "region": "eu-west-3",
+    "s3bucket": "bitbull-serverless-templates-oofiev6que5ooy3"
+  },
+  {
     "region": "eu-central-1",
     "s3bucket": "bitbull-serverless-templates-saijuozaeshae6e"
   },

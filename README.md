@@ -16,6 +16,7 @@ Create a IAM role with administrator permissions to allow access user from an ot
 | Region       | Deploy Link |
 | ------------ | ----------- |
 | eu-west-1    | [![Launch Stack in region eu-west-1 ](./doc/button.png)](https://eu-west-1.console.aws.amazon.com/cloudformation/home#/stacks/create/review?templateURL=https://bitbull-serverless-templates-butoamoogh8eigo.s3.eu-west-1.amazonaws.com/iam-role-cross-account-access/template.yml&stackName=accessrole) |
+| eu-west-3    | [![Launch Stack in region eu-west-3 ](./doc/button.png)](https://eu-west-3.console.aws.amazon.com/cloudformation/home#/stacks/create/review?templateURL=https://bitbull-serverless-templates-oofiev6que5ooy3.s3.eu-west-3.amazonaws.com/iam-role-cross-account-access/template.yml&stackName=accessrole) |
 | eu-central-1 | [![Launch Stack in region eu-central-1](./doc/button.png)](https://eu-central-1.console.aws.amazon.com/cloudformation/home#/stacks/create/review?templateURL=https://bitbull-serverless-templates-saijuozaeshae6e.s3.eu-central-1.amazonaws.com/iam-role-cross-account-access/template.yml&stackName=accessrole) |
 | us-east-1    | [![Launch Stack in region us-east-1](./doc/button.png)](https://us-east-1.console.aws.amazon.com/cloudformation/home#/stacks/create/review?templateURL=https://bitbull-serverless-templates-chai7ephae5eet2.s3.us-east-1.amazonaws.com/iam-role-cross-account-access/template.yml&stackName=accessrole) |
 | us-east-2    | [![Launch Stack in region us-east-2](./doc/button.png)](https://us-east-2.console.aws.amazon.com/cloudformation/home#/stacks/create/review?templateURL=https://bitbull-serverless-templates-xae9och1eipiem8.s3.us-east-2.amazonaws.com/iam-role-cross-account-access/template.yml&stackName=accessrole) |
@@ -46,6 +47,7 @@ Resources:
 | Region       | Template URLs                                                                                           |
 | ------------ | ------------------------------------------------------------------------------------------------------- |
 | eu-west-1    | https://bitbull-serverless-templates-butoamoogh8eigo.s3.eu-west-1.amazonaws.com/iam-role-cross-account-access/template.yml    |
+| eu-west-3    | https://bitbull-serverless-templates-oofiev6que5ooy3.s3.eu-west-3.amazonaws.com/iam-role-cross-account-access/template.yml    |
 | eu-central-1 | https://bitbull-serverless-templates-saijuozaeshae6e.s3.eu-central-1.amazonaws.com/iam-role-cross-account-access/template.yml |
 | us-east-1    | https://bitbull-serverless-templates-chai7ephae5eet2.s3.us-east-1.amazonaws.com/iam-role-cross-account-access/template.yml    |
 | us-east-2    | https://bitbull-serverless-templates-xae9och1eipiem8.s3.us-east-2.amazonaws.com/iam-role-cross-account-access/template.yml    |
