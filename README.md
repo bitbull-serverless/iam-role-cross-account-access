@@ -1,7 +1,7 @@
 # IAM Role for cross account access
 
 ![CloudFormation](https://img.shields.io/badge/-CloudFormation-%23FF4F8B)
-![S3](https://img.shields.io/badge/-S3-%236BAE3E)
+![IAM](https://img.shields.io/badge/-IAM-%23FF4F8B)
 
 Create a rule to be used through the account [switch role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-console.html).
 
