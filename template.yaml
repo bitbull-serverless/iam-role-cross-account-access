@@ -52,7 +52,172 @@ Resources:
                   - "budgets:*"
                 Resource: "*"
 
+  CrossAccountRoleAppDeveloper:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "OrganizationAccountAccessRole${RoleIdentifier}_AppDeveloper"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AccountId}:root
+            Action: sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+      Policies:
+        - PolicyName: DevelopmentAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action: 
+                  - 'iam:*'
+                  - 'sts:PassRole'
+                  - 'cloudfront:*'
+                  - 'cloudwatch:*'
+                  - 'datasync:*'
+                  - 'sns:*'
+                  - 'sqs:*'
+                  - 'ssm:*'
+                  - 's3:*'
+                  - 'polly:*'
+                  - 'ecs:*'
+                  - 'ecr:*'
+                  - 'codedeploy:*'
+                Resource: '*'
+        - PolicyName: DenyRiskyActions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Deny'
+                Action: 
+                  - 'iam:CreateUser'
+                  - 'iam:CreateAccessKey'
+                Resource: '*'
+        - PolicyName: BillingAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: 'Deny'
+                Action: 
+                  - "aws-portal:*"
+                  - "budgets:*"
+                Resource: "*"
+
+  CrossAccountRoleServerlessDeveloper:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "OrganizationAccountAccessRole${RoleIdentifier}_ServerlessDeveloper"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AccountId}:root
+            Action: sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+      Policies:
+        - PolicyName: DevelopmentAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action: 
+                  - 'iam:*'
+                  - 'sts:PassRole'
+                  - 'cloudfront:*'
+                  - 'cloudwatch:*'
+                  - 'states:*'
+                  - 'lambda:*'
+                  - 'datasync:*'
+                  - 'cloudformation:*'
+                  - 'sns:*'
+                  - 'sqs:*'
+                  - 'ssm:*'
+                  - 's3:*'
+                  - 'polly:*'
+                  - 'dynamodb:*'
+                  - 'apigateway:*'
+                  - 'ecs:*'
+                  - 'ecr:*'
+                Resource: '*'
+        - PolicyName: DenyRiskyActions
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Deny'
+                Action: 
+                  - 'iam:CreateUser'
+                  - 'iam:CreateAccessKey'
+                  - 'sts:AssumeRole'
+                Resource: '*'
+        - PolicyName: DenyBillingAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: 'Deny'
+                Action: 
+                  - "aws-portal:*"
+                  - "budgets:*"
+                Resource: "*"
+
+  CrossAccountRoleQualityAssurance:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "OrganizationAccountAccessRole${RoleIdentifier}_QA"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AccountId}:root
+            Action: sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+      Policies:
+        - PolicyName: DevelopmentAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action: 
+                  - 'iam:*'
+                  - 'sts:PassRole'
+                  - 'cloudfront:*'
+                  - 'lambda:*'
+                  - 'cloudformation:*'
+                Resource: '*'
+        - PolicyName: DenyBillingAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: 'Deny'
+                Action: 
+                  - "aws-portal:*"
+                  - "budgets:*"
+                Resource: "*"
+
+  CrossAccountRoleManagement:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "OrganizationAccountAccessRole${RoleIdentifier}_Management"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !Sub arn:aws:iam::${AccountId}:root
+            Action: sts:AssumeRole
+      Path: "/"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+
 Outputs:
   RoleArn:
-    Description: "The ARN of the created access rule, to be communicated to whoever is to connect"
+    Description: "The ARN of the created access rule, to be communicated to whoever ask the account access"
     Value: !GetAtt CrossAccountRole.Arn
