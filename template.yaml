@@ -73,7 +73,6 @@ Resources:
             Statement:
               - Effect: 'Allow'
                 Action: 
-                  - 'iam:*'
                   - 'sts:PassRole'
                   - 'cloudfront:*'
                   - 'cloudwatch:*'
@@ -100,7 +99,7 @@ Resources:
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              - Effect: 'Deny'
+              - Effect: !Ref BillingAccess
                 Action: 
                   - "aws-portal:*"
                   - "budgets:*"
@@ -144,6 +143,7 @@ Resources:
                   - 'apigateway:*'
                   - 'ecs:*'
                   - 'ecr:*'
+                  - 'events:*'
                 Resource: '*'
         - PolicyName: DenyRiskyActions
           PolicyDocument:
@@ -216,6 +216,16 @@ Resources:
       Path: "/"
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/ReadOnlyAccess"
+      Policies:
+        - PolicyName: BillingAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: !Ref BillingAccess
+                Action: 
+                  - "aws-portal:*"
+                  - "budgets:*"
+                Resource: "*"
 
 Outputs:
   RoleArn:
