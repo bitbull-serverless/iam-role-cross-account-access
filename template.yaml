@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 
 Description: IAM Role for cross account access
@@ -33,6 +33,9 @@ Resources:
             Principal:
               AWS: !Sub arn:aws:iam::${AccountId}:root
             Action: sts:AssumeRole
+            Condition:
+              Bool:
+                "aws:MultiFactorAuthPresent": "true"
       Path: "/"
       Policies:
         - PolicyName: AdministratorAccess
@@ -47,7 +50,7 @@ Resources:
             Version: "2012-10-17"
             Statement:
               - Effect: !Ref BillingAccess
-                Action: 
+                Action:
                   - "aws-portal:*"
                   - "budgets:*"
                 Resource: "*"
@@ -63,44 +66,47 @@ Resources:
             Principal:
               AWS: !Sub arn:aws:iam::${AccountId}:root
             Action: sts:AssumeRole
+            Condition:
+              Bool:
+                "aws:MultiFactorAuthPresent": "true"
       Path: "/"
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/ReadOnlyAccess"
       Policies:
         - PolicyName: DevelopmentAccess
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: "2012-10-17"
             Statement:
-              - Effect: 'Allow'
-                Action: 
-                  - 'sts:PassRole'
-                  - 'cloudfront:*'
-                  - 'cloudwatch:*'
-                  - 'datasync:*'
-                  - 'sns:*'
-                  - 'sqs:*'
-                  - 'ssm:*'
-                  - 's3:*'
-                  - 'polly:*'
-                  - 'ecs:*'
-                  - 'ecr:*'
-                  - 'codedeploy:*'
-                Resource: '*'
+              - Effect: "Allow"
+                Action:
+                  - "sts:PassRole"
+                  - "cloudfront:*"
+                  - "cloudwatch:*"
+                  - "datasync:*"
+                  - "sns:*"
+                  - "sqs:*"
+                  - "ssm:*"
+                  - "s3:*"
+                  - "polly:*"
+                  - "ecs:*"
+                  - "ecr:*"
+                  - "codedeploy:*"
+                Resource: "*"
         - PolicyName: DenyRiskyActions
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: "2012-10-17"
             Statement:
-              - Effect: 'Deny'
-                Action: 
-                  - 'iam:CreateUser'
-                  - 'iam:CreateAccessKey'
-                Resource: '*'
+              - Effect: "Deny"
+                Action:
+                  - "iam:CreateUser"
+                  - "iam:CreateAccessKey"
+                Resource: "*"
         - PolicyName: BillingAccess
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: !Ref BillingAccess
-                Action: 
+                Action:
                   - "aws-portal:*"
                   - "budgets:*"
                 Resource: "*"
@@ -116,51 +122,54 @@ Resources:
             Principal:
               AWS: !Sub arn:aws:iam::${AccountId}:root
             Action: sts:AssumeRole
+            Condition:
+              Bool:
+                "aws:MultiFactorAuthPresent": "true"
       Path: "/"
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/ReadOnlyAccess"
       Policies:
         - PolicyName: DevelopmentAccess
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: "2012-10-17"
             Statement:
-              - Effect: 'Allow'
-                Action: 
-                  - 'iam:*'
-                  - 'sts:PassRole'
-                  - 'cloudfront:*'
-                  - 'cloudwatch:*'
-                  - 'states:*'
-                  - 'lambda:*'
-                  - 'datasync:*'
-                  - 'cloudformation:*'
-                  - 'sns:*'
-                  - 'sqs:*'
-                  - 'ssm:*'
-                  - 's3:*'
-                  - 'polly:*'
-                  - 'dynamodb:*'
-                  - 'apigateway:*'
-                  - 'ecs:*'
-                  - 'ecr:*'
-                  - 'events:*'
-                Resource: '*'
+              - Effect: "Allow"
+                Action:
+                  - "iam:*"
+                  - "sts:PassRole"
+                  - "cloudfront:*"
+                  - "cloudwatch:*"
+                  - "states:*"
+                  - "lambda:*"
+                  - "datasync:*"
+                  - "cloudformation:*"
+                  - "sns:*"
+                  - "sqs:*"
+                  - "ssm:*"
+                  - "s3:*"
+                  - "polly:*"
+                  - "dynamodb:*"
+                  - "apigateway:*"
+                  - "ecs:*"
+                  - "ecr:*"
+                  - "events:*"
+                Resource: "*"
         - PolicyName: DenyRiskyActions
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: "2012-10-17"
             Statement:
-              - Effect: 'Deny'
-                Action: 
-                  - 'iam:CreateUser'
-                  - 'iam:CreateAccessKey'
-                  - 'sts:AssumeRole'
-                Resource: '*'
+              - Effect: "Deny"
+                Action:
+                  - "iam:CreateUser"
+                  - "iam:CreateAccessKey"
+                  - "sts:AssumeRole"
+                Resource: "*"
         - PolicyName: DenyBillingAccess
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              - Effect: 'Deny'
-                Action: 
+              - Effect: "Deny"
+                Action:
                   - "aws-portal:*"
                   - "budgets:*"
                 Resource: "*"
@@ -176,28 +185,31 @@ Resources:
             Principal:
               AWS: !Sub arn:aws:iam::${AccountId}:root
             Action: sts:AssumeRole
+            Condition:
+              Bool:
+                "aws:MultiFactorAuthPresent": "true"
       Path: "/"
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/ReadOnlyAccess"
       Policies:
         - PolicyName: DevelopmentAccess
           PolicyDocument:
-            Version: '2012-10-17'
+            Version: "2012-10-17"
             Statement:
-              - Effect: 'Allow'
-                Action: 
-                  - 'iam:*'
-                  - 'sts:PassRole'
-                  - 'cloudfront:*'
-                  - 'lambda:*'
-                  - 'cloudformation:*'
-                Resource: '*'
+              - Effect: "Allow"
+                Action:
+                  - "iam:*"
+                  - "sts:PassRole"
+                  - "cloudfront:*"
+                  - "lambda:*"
+                  - "cloudformation:*"
+                Resource: "*"
         - PolicyName: DenyBillingAccess
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
-              - Effect: 'Deny'
-                Action: 
+              - Effect: "Deny"
+                Action:
                   - "aws-portal:*"
                   - "budgets:*"
                 Resource: "*"
@@ -213,6 +225,9 @@ Resources:
             Principal:
               AWS: !Sub arn:aws:iam::${AccountId}:root
             Action: sts:AssumeRole
+            Condition:
+              Bool:
+                "aws:MultiFactorAuthPresent": "true"
       Path: "/"
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/ReadOnlyAccess"
@@ -222,7 +237,7 @@ Resources:
             Version: "2012-10-17"
             Statement:
               - Effect: !Ref BillingAccess
-                Action: 
+                Action:
                   - "aws-portal:*"
                   - "budgets:*"
                 Resource: "*"
