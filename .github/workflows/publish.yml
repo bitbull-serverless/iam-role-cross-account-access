@@ -5,6 +5,10 @@ on:
     tags:
       - "*"
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,9 +29,10 @@ jobs:
         with:
           name: sam
           path: .aws-sam
+          include-hidden-files: true
 
       - id: version
-        run: echo "tag=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
+        run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
 
   load_config:
     runs-on: ubuntu-latest
@@ -39,7 +44,7 @@ jobs:
       - id: matrix
         run: |
           JSON=$(echo $(cat .github/workflows/config.json) | sed 's/ //g' )
-          echo "json=$JSON" >> $GITHUB_OUTPUT
+          echo "::set-output name=json::$JSON"
 
   create_release:
     runs-on: ubuntu-latest
@@ -74,11 +79,11 @@ jobs:
 
       - uses: aws-actions/setup-sam@v1
 
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v5.1.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          audience: sts.amazonaws.com
           aws-region: ${{ matrix.config.region }}
+          role-to-assume: ${{ secrets.OIDC_ROLE_ARN }}
 
       - uses: actions/download-artifact@master
         with:
